@@ -6,6 +6,8 @@ jQuery(function($){
 	/* Mode strict */
 	"use strict";
 	console.log('chargement de la page');
+	
+	var vignette=1;
 	// réagir au changement d'historique (bouton précédent)
 	function ecoute(){
 		$('a').click(function() {
@@ -24,24 +26,31 @@ jQuery(function($){
 		hideInfo();
 	});
 	$('#leftArrow').click(function() {
-		console.log('leftArrow');
-		
-		
-		var current = $('.actif');
-		var previous = $('.actif').prev();
-		current.animate({
-			left: 850,
-		},1000,function(){
+		if(vignette>1){
+			console.log('leftArrow');
+			$('#slider').animate({
+				left: '+=853',
+			},1000);
 			
-			previous.animate({
-			left: 0,
-		},1000)
-			previous.addClass('actif');
-			current.removeClass('actif');
-		}
-		)
-		
-		
+			$('#arrow').animate({
+				opacity:0
+			},500,function(){
+				if(vignette ==1){
+					$('#arrow').removeClass('lyon');
+					$('#arrow').addClass('toulouse');
+				}
+				if(vignette ==2){
+					$('#arrow').removeClass('toulouse');
+					$('#arrow').addClass('lyon');
+				}
+				if(vignette ==3){
+					$('#arrow').removeClass('lyon');
+					$('#arrow').addClass('rennes');
+				}
+				$('#arrow').animate({opacity:1})
+			});
+			vignette--;
+		}	
 		
 		
 	});
@@ -51,20 +60,25 @@ jQuery(function($){
 	$('#rightArrow').click(function() {
 		console.log('rightArrow');
 		
-		var current = $('.actif');
-		var next = $('.actif').next();
-		current.animate({
-			left: -850,
-		},1000,function(){
-			
-			next.animate({
-			left: 0,
-		},1000)
-			next.addClass('actif');
-			current.removeClass('actif');
-		}
-		)
+		$('#slider').animate({
+			left: '-=853',
+		},1000);
 		
+		
+		$('#arrow').animate({
+				opacity:0
+			},500,function(){
+				if(vignette ==2){
+					$('#arrow').removeClass('toulouse');
+					$('#arrow').addClass('lyon');
+				}
+				if(vignette ==3){
+					$('#arrow').removeClass('lyon');
+					$('#arrow').addClass('rennes');
+				}
+				$('#arrow').animate({opacity:1})
+			});
+		vignette++;
 		
 		
 		
